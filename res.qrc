@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/translate/qtbase_ru.qm</file>
+        <file>res/icon/clear.png</file>
+        <file>res/icon/lostchek.png</file>
+        <file>res/icon/connect.png</file>
+        <file>res/icon/GasStation.png</file>
+    </qresource>
+</RCC>
