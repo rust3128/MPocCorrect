@@ -28,14 +28,16 @@ SOURCES += \
         mainwindow.cpp \
     connectdialog.cpp \
     deletesaleorderdialog.cpp \
-    lostchekerdialog.cpp
+    lostchekerdialog.cpp \
+    azsconnect.cpp
 
 HEADERS += \
         mainwindow.h \
     database.h \
     connectdialog.h \
     deletesaleorderdialog.h \
-    lostchekerdialog.h
+    lostchekerdialog.h \
+    azsconnect.h
 
 FORMS += \
         mainwindow.ui \

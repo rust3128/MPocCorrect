@@ -1,6 +1,8 @@
 #include "lostchekerdialog.h"
 #include "ui_lostchekerdialog.h"
 #include <QDebug>
+#include <QThread>
+#include <QDateTime>
 
 LostChekerDialog::LostChekerDialog(QWidget *parent) :
     QDialog(parent),
@@ -39,9 +41,35 @@ void LostChekerDialog::on_lineEditTerminal_textChanged(const QString &arg1)
         if(arg1.toInt() == modelTerminals->data(modelTerminals->index(i,0)).toInt()){
             ui->labelAZS->setText(modelTerminals->data(modelTerminals->index(i,1)).toString());
             ui->labelAZS->show();
+            curTerminal = modelTerminals->record(i);
             ui->pushButtonConnect->show();
             break;
         }
 
     }
+}
+
+void LostChekerDialog::on_pushButtonConnect_clicked()
+{
+//    qDebug() << curTerminal.value("SERVER_NAME").toString();
+    QThread *thread = new QThread;
+    dbAzs = new AzsConnect(curTerminal);
+    dbAzs->moveToThread(thread);
+    connect(thread,SIGNAL(started()),dbAzs,SLOT(getAzsInfo()));
+    connect(thread,SIGNAL(started()),this,SLOT(startGetInfo()));
+    connect(thread,SIGNAL(finished()),this,SLOT(finishGetInfo()));
+
+    thread->start();
+
+
+}
+
+void LostChekerDialog::startGetInfo()
+{
+    qDebug() << "Start" << QDateTime::currentDateTime().toString();
+}
+
+void LostChekerDialog::finishGetInfo()
+{
+    qDebug() << "Finis" << QDateTime::currentDateTime().toString();
 }

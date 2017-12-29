@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <QSqlQueryModel>
+#include <QSqlRecord>
+#include "azsconnect.h"
 
 namespace Ui {
 class LostChekerDialog;
@@ -18,10 +20,15 @@ public:
 
 private slots:
     void on_lineEditTerminal_textChanged(const QString &arg1);
+    void on_pushButtonConnect_clicked();
+    void startGetInfo();
+    void finishGetInfo();
 
 private:
     Ui::LostChekerDialog *ui;
     QSqlQueryModel *modelTerminals;
+    QSqlRecord curTerminal;             //Запись о терминале в котроырй будем добавлять чек
+    AzsConnect *dbAzs;
 private:
     void createModelTerminals();
 };
