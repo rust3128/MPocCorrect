@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSqlRecord>
+#include <QSqlQueryModel>
 
 class AzsConnect : public QObject
 {
@@ -11,12 +12,14 @@ public:
     explicit AzsConnect(QSqlRecord rec, QObject *parent = nullptr);
 
 signals:
-
+    void connectionError(QString errorMeaage);
+    void fin();
 public slots:
     void getAzsInfo();
 
 private:
     QSqlRecord azsRec;
+    QSqlQueryModel *modelShifts;
 };
 
 #endif // AZSCONNECT_H

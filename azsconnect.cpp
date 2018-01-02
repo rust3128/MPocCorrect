@@ -3,6 +3,7 @@
 #include <QtSql>
 
 
+
 AzsConnect::AzsConnect(QSqlRecord rec, QObject *parent) :  QObject(parent)
 {
     azsRec=rec;
@@ -14,7 +15,7 @@ void AzsConnect::getAzsInfo()
     qDebug() << azsRec.value("SERVER_NAME").toString();
     ///Подключаемся к базе данных АЗС
     QString pass;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QIBASE","azs");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QIBASE","azs"+azsRec.value("TERMINAL_ID").toString());
     db.setHostName(azsRec.value("SERVER_NAME").toString().trimmed());
     db.setDatabaseName(azsRec.value("DB_NAME").toString().trimmed());
     db.setUserName(azsRec.value("CON_LOGIN").toString().trimmed());
@@ -25,9 +26,13 @@ void AzsConnect::getAzsInfo()
             pass="sunoiladm";
     db.setPassword(pass);
     if(!db.open()) {
-        qDebug() <<  "Не возможно подключиться к базе данных." << endl << "Причина:" << db.lastError().text();
+        QString errorString =  db.lastError().text();
+        qDebug() <<  "Не возможно подключиться к базе данных." << endl << "Причина:" << errorString;
+        emit connectionError(errorString);
+        emit fin();
 
     }
+    emit fin();
 
 
 }

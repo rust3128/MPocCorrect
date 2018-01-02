@@ -29,7 +29,8 @@ SOURCES += \
     connectdialog.cpp \
     deletesaleorderdialog.cpp \
     lostchekerdialog.cpp \
-    azsconnect.cpp
+    azsconnect.cpp \
+    QProgressIndicator.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,7 +38,8 @@ HEADERS += \
     connectdialog.h \
     deletesaleorderdialog.h \
     lostchekerdialog.h \
-    azsconnect.h
+    azsconnect.h \
+    QProgressIndicator.h
 
 FORMS += \
         mainwindow.ui \
